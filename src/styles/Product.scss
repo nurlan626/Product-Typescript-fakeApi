@@ -1,0 +1,22 @@
+.product{
+    width: 400px;
+    background-color: rgb(230, 252, 216);
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.button{
+    padding: 10px;
+    color: white;
+    border-radius: 10px;
+}
+.yellowButton{
+    background-color: rgb(190, 190, 57);
+}
+.blueButton{
+    background-color: rgb(99, 99, 157);
+}
