@@ -1,34 +1,41 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { IProduct } from './components/model/model';
+import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
+import Error from './components/Error';
+import Loader from './components/Loader';
+// import { IProduct } from './components/model/model';
 import Product from './components/Product';
+import { useProducts } from './customHooks/useProducts';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/App.scss'
+import ModalComponent from './components/ModalComponent';
+import CreateProduct from './components/CreateProduct';
+import { IProduct } from './model/model';
 // import { products } from './data/data'
 
 function App() {
-  const [products, setProducts] = useState<IProduct[]>([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-
-  const fetchProducsts = async () => {
-    try {
-      setError('')
-      setLoading(true)
-      let response = await axios.get<IProduct[]>('https://fakestoreapi.com/products')
-      setProducts(response.data);
-      setLoading(false)
-    } catch (e: any) {
-      setLoading(false);
-      setError(e.message)
-    }
+  const { products, loading, error, addProductHandler } = useProducts();
+  const [showModal, setShowModal] = useState(false);
+  function createProductHandler(product: IProduct) {
+    setShowModal(false);
+    addProductHandler(product);
   }
-  useEffect(() => {
-    fetchProducsts();
-  }, []);
   return (
     <div className="App">
-      {loading && <div>"Loading"</div>} 
-      {error && <div>{error}</div>}
+      <Button variant="primary" onClick={() => setShowModal(true)}>
+        Add new product
+      </Button>
+      {loading && <Loader />}
+      {error && <Error error={error} />}
+      <div className='products__container'>
       {products.map((product, index) => <Product product={product} key={index} />)}
+
+      </div>
+
+      <div>
+        <ModalComponent showModal={showModal} setShowModal={setShowModal}>
+          <CreateProduct createProductHandler={createProductHandler} />
+        </ ModalComponent>
+      </div>
     </div>
   );
 }

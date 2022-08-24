@@ -1,0 +1,10 @@
+.App{
+    display: flex;
+    flex-direction: column;
+
+    padding-top: 50px;
+}
+.products__container{
+    display: flex;
+    flex-wrap: wrap;
+}

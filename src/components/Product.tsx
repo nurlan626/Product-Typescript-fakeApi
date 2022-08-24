@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import {IProduct} from './model/model'
+import  { useState } from 'react'
+import {IProduct} from '../model/model'
 import '../styles/Product.scss'
 
 interface ProductProps {
@@ -10,7 +10,7 @@ const Product = ({product}: ProductProps) => {
   const [details, setDetails] = useState(false);
   return (
     <div className='product'>
-    <img src={product.image} width={100} height={50}/>
+    <img src={product.image} width={100} height={50} alt="alt"/>
         <div className='title'>{product.title} </div>
         <div>{product.price}</div>
       <button
@@ -19,7 +19,6 @@ const Product = ({product}: ProductProps) => {
         {details ? 'Hide details' : 'Show details'}
       </button>
         {details && <div>{product.description}</div>}       
-
     </div>
   )
 }
